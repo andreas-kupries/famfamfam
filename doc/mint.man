@@ -1,0 +1,5 @@
+[comment {-*- tcl -*- --- doctools --- manpage}]
+[vset NAME mint]
+[vset UNAME Mint]
+[vset EXAMPLE page]
+[include include/template.inc]

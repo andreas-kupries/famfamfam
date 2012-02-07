@@ -1,0 +1,48 @@
+[comment {-*- tcl -*- doctools manpage}]
+[manpage_begin famfamfam_introduction n 1]
+[include include/module.inc]
+[titledesc {FamFamFam - Introduction to FamFamFam}]
+[description]
+[include include/welcome.inc]
+
+[comment {
+[para]
+What are your goals which drove you here ?
+
+[list_begin enumerated]
+[enum]
+[list_end]
+}]
+
+[section {Related Documents}]
+
+[list_begin enum]
+[enum] [term {FamFamFam - How To Get The Sources}].
+[enum] [term {FamFamFam - The Installer's Guide}].
+[enum] [term {FamFamFam - The Developer's Guide}].
+[list_end]
+
+[section {System Architecture}]
+
+FamFamFam consists of one internal core package 
+prvoding the commands shared by all the user-visible
+packages, and then one user-visible package per
+icon set made available, for a total of 5 packages
+(1 internal, plus 4 icon sets).
+
+[para] The user visible packages are
+
+[list_begin enumerated]
+[enum][package famfamfam::flags]
+[enum][package famfamfam::mini]
+[enum][package famfamfam::mint]
+[enum][package famfamfam::silk]
+[list_end]
+
+[para] The internal package is not described here, as
+it is only of interest to developers modifying and/or
+maintaining famfamfam itself. As such its description
+is found only in the Developer's Guide.
+
+[manpage_end]
+

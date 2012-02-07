@@ -1,0 +1,41 @@
+[comment {-*- tcl -*- --- doctools --- manpage}]
+[manpage_begin famfamfam n 1]
+[include include/module.inc]
+[titledesc {FamFamFam Core}]
+[comment {% % %% %%% %%%%% %%%%%%%% %%%%%%%%%%%%% %%%%%%%%%%%%%%%%%%%%%}]
+[description]
+[include include/welcome.inc]
+
+[para] This package is internal to the other FamFamFam packages and
+provides the common functionality shared by all.
+
+[para] It resides in the Core level of the architecture
+[image arch_core]
+
+[comment {% % %% %%% %%%%% %%%%%%%% %%%%%%%%%%%%% %%%%%%%%%%%%%%%%%%%%%}]
+[section API]
+
+[list_begin definitions]
+[comment ============================================================]
+[call [cmd ::famfamfam::Declare] [arg name] [arg icondir] [opt [arg pattern]]]
+
+This command registers the icons found in the icon directory
+[arg icondir] and matching the [arg pattern] as the icon set
+[arg name].
+
+If the [arg pattern] is not specified it defaults to [const *.png].
+
+[para] The command creates the accessor commands
+[list_begin enumerated]
+[enum][cmd ::famfamfam] [arg name] [method get]
+[enum][cmd ::famfamfam] [arg name] [method list]
+[list_end]
+for the new icon set.
+
+[para] The command returns the empty string as its result.
+
+[list_end]
+
+[comment {% % %% %%% %%%%% %%%%%%%% %%%%%%%%%%%%% %%%%%%%%%%%%%%%%%%%%%}]
+[include include/feedback.inc]
+[manpage_end]

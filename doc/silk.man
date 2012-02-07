@@ -1,0 +1,5 @@
+[comment {-*- tcl -*- --- doctools --- manpage}]
+[vset NAME silk]
+[vset UNAME Silk]
+[vset EXAMPLE wand]
+[include include/template.inc]

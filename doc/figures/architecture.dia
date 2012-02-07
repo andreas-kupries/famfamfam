@@ -1,0 +1,59 @@
+# -*- tcl -*- tcl.tk//DSL diagram//EN//1.0
+# CRIMP Architecture Diagram
+
+set ::counter 0
+if {![info exists ::mark]} { set ::mark -1 }
+
+proc xbox {args} {
+    variable ::mark
+    variable ::counter
+
+    if {$mark == $counter} {
+	lappend args color red stroke 2
+    }
+    incr counter
+    return [uplevel 1 [list box {*}$args]]
+}
+
+proc area {label args} {
+    set E [xbox fillcolor lightyellow {*}$args]
+    group {
+	text text $label with nw at [last box nw]
+    }
+    return $E
+}
+
+down
+set boxwidth   [90 mm]
+set movelength  [5 mm]
+
+block {
+    set hx [50 mm]
+    set IS [area " Icon Sets" height $hx]
+    block {
+	set fillcolor white
+	set boxwidth  [35 mm]
+	set boxheight [15 mm]
+	east
+	xbox famfamfam::flags
+	move
+	xbox famfamfam::mini
+	south ; move
+	xbox famfamfam::mint
+	west ; move
+	xbox famfamfam::silk
+    } at $IS
+}
+group {
+    move
+    set C [area " Core Packages" width [last block width]]
+    text at $C "famfamfam"
+}
+group {
+    north
+    move
+    set A [area " Applications" width [last block width]]
+}
+
+unset ::mark ::counter
+

@@ -1,0 +1,5 @@
+[comment {-*- tcl -*- --- doctools --- manpage}]
+[vset NAME mini]
+[vset UNAME Mini]
+[vset EXAMPLE box]
+[include include/template.inc]

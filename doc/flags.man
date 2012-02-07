@@ -1,0 +1,5 @@
+[comment {-*- tcl -*- --- doctools --- manpage}]
+[vset NAME flags]
+[vset UNAME Flags]
+[vset EXAMPLE wales]
+[include include/template.inc]

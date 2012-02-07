@@ -1,0 +1,44 @@
+# -*- tcl -*- tcl.tk//DSL diagram//EN//1.0
+## ====================================================================
+## DSL for dependency diagram. Default parameters.
+
+source [file join [file dirname [file normalize [info script]]] dsl_dependencies.inc]
+
+## ====================================================================
+## Dependencies, bottom-up, one procedure per package.
+
+proc famfamfam {} { box famfamfam color red }
+
+proc famfamfam_flags {} {
+    box famfamfam::flags color red
+    group { down ; --- ; r ; --- 5.5 ; d ; ---> } ;# famfamfam
+}
+
+proc famfamfam_mini {} {
+    box famfamfam::mini color red
+    group { down ; --- 0.5 ; r ; --- ; d ; ---> 1.5 ; famfamfam }
+}
+
+proc famfamfam_mint {} {
+    box famfamfam::mint color red
+    group { down ; --- 0.5 ; l ; --- 1.5 ; d ; ---> 1.5 } ;# famfamfam
+}
+
+proc famfamfam_silk {} {
+    box famfamfam::silk color red
+    group { down ; --- ; l ; --- 6 ; d ; ---> } ;# famfamfam
+}
+
+## ====================================================================
+
+proc layout {} {
+    east
+    famfamfam_flags ; move
+    famfamfam_mini  ; move
+    famfamfam_mint  ; move
+    famfamfam_silk
+}
+
+## ====================================================================
+
+layout
