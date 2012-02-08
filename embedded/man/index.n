@@ -259,6 +259,9 @@ famfamfam_install_guide
 \fBfiles/intro.n\fR
 famfamfam_introduction
 .TP
+\fBfiles/license.n\fR
+famfamfam_license
+.TP
 \fBfiles/mini.n\fR
 famfamfam::mini
 .TP
@@ -319,6 +322,9 @@ famfamfam_install_guide
 \fBfiles/intro.n\fR
 famfamfam_introduction
 .TP
+\fBfiles/license.n\fR
+famfamfam_license
+.TP
 \fBfiles/mini.n\fR
 famfamfam::mini
 .TP
@@ -348,6 +354,9 @@ famfamfam_install_guide
 .TP
 \fBfiles/intro.n\fR
 famfamfam_introduction
+.TP
+\fBfiles/license.n\fR
+famfamfam_license
 .TP
 \fBfiles/mini.n\fR
 famfamfam::mini
