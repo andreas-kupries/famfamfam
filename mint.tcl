@@ -2,6 +2,9 @@
 # A Tcl packaging of the FamFamFam Icon set 'Mint'.
 # Copyright (c) 2012 Andreas Kupries <andreas_kupries@users.sourceforge.net>
 
+# @mdgen OWNER: mint/*
+# @mdgen OWNER: mint/icons/*
+
 # # ## ### ##### ######## ############# #####################
 ## Requisites
 

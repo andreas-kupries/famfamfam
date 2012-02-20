@@ -2,6 +2,9 @@
 # A Tcl packaging of the FamFamFam Icon set 'Silk'.
 # Copyright (c) 2012 Andreas Kupries <andreas_kupries@users.sourceforge.net>
 
+# @mdgen OWNER: silk/*
+# @mdgen OWNER: silk/icons/*
+
 # # ## ### ##### ######## ############# #####################
 ## Requisites
 

@@ -2,6 +2,9 @@
 # A Tcl packaging of the FamFamFam Icon set 'Mini'.
 # Copyright (c) 2012 Andreas Kupries <andreas_kupries@users.sourceforge.net>
 
+# @mdgen OWNER: mini/*
+# @mdgen OWNER: mini/icons/*
+
 # # ## ### ##### ######## ############# #####################
 ## Requisites
 
