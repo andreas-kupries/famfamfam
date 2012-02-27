@@ -199,6 +199,29 @@ proc _install {{ldir {}}} {
 	puts  $c "package ifneeded $pkg $version \[list ::apply {{dir} {source \$dir/$vfile}} \$dir\]"
 	close $c
 
+	set    c [open $ldir/${name}-new/teapot.txt w]
+	puts $c "Package $pkg $version"
+	puts $c "Meta platform tcl"
+	puts $c "Meta entrykeep ."
+	puts $c "Meta included pkgIndex.tcl"
+	puts $c "Meta included $vfile"
+	puts $c "Meta subject icon famfamfam "
+	puts $c "Meta build::date [clock format [clock seconds] -format {%Y-%m-%d}]"
+	puts $c "Meta author \{Andreas Kupries\}"
+	puts $c "Meta as::origin http://chiselapp.com/user/andreas_kupries/repository/famfamfam/home"
+	puts $c "Meta category icons"
+	puts $c "Meta license BSD"
+	if {$icons} {
+	    set icons [file root $vfile]
+	    puts $c "Meta require famfamfam"
+	    puts $c "Meta subject $icons"
+	    puts $c "Meta included $icons"
+	    puts $c "Meta description Binding to the famfamfam $icons icon set"
+	} else {
+	    puts $c "Meta description Common code for the famfamfam icon bindings"
+	}
+	close $c
+
 	file delete -force $ldir/$name$version
 	file rename        $ldir/${name}-new     $ldir/$name$version
 	puts "Installed package:     $ldir/$name$version"
