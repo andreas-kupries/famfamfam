@@ -7,4 +7,4 @@
 [require Tk 8.5]
 [require Tcl 8.5]
 [require img::png]
-[require famfamfam [opt 1]]
+[require famfamfam [opt 1.1]]

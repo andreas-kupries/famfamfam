@@ -2,22 +2,25 @@
 # A Tcl packaging of the FamFamFam Icon set 'Mini'.
 # Copyright (c) 2012 Andreas Kupries <andreas_kupries@users.sourceforge.net>
 
+# @mdgen OWNER: mini/*
+# @mdgen OWNER: mini/icons/*
+
 # # ## ### ##### ######## ############# #####################
 ## Requisites
 
-package require famfamfam
+package require famfamfam 1.1
 
 # # ## ### ##### ######## ############# #####################
 ## Initialization
 
 ::apply {{selfdir} {
-    ::famfamfam::Declare mini $selfdir/mini/icons *.gif
+    ::famfamfam declare mini $selfdir/mini/icons *.gif
 }} [file dirname [file normalize [info script]]]
 
 # # ## ### ##### ######## ############# #####################
 ## Ready
 
-package provide famfamfam::mini 1
+package provide famfamfam::mini 1.0.1
 return
 
 # # ## ### ##### ######## ############# #####################

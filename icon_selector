@@ -1,0 +1,460 @@
+#!/usr/bin/env tclsh
+# -*- tcl -*-
+# # ## ### ##### ######## ############# #####################
+# - debugging - local icon package files
+
+lappend auto_path [file dirname [file normalize [info script]]]
+
+package require Tcl 8.5
+package require widget::scrolledwindow
+package require widget::toolbar
+package require widget::dialog
+package require widget::validator ; # Tklib CVS!
+package require tooltip
+package require famfamfam
+package require famfamfam::silk
+package require famfamfam::subset
+
+# # ## ### ##### ######## ############# #####################
+
+proc main {} {
+    cmdline
+    gui
+    after 0 setup
+
+    # preload silk
+    # make loading of mint, mini, flags easy.
+
+    vwait /forever
+    return
+}
+
+proc cmdline {} {
+    global argv
+    # syntax: -
+    if {[llength $argv]} usage
+    return
+}
+
+proc usage {} {
+    global argv0
+    puts stderr "Usage: $argv0"
+    exit 1
+}
+
+# # ## ### ##### ######## ############# #####################
+
+proc gui {} {
+    # entry field for package names => icon sets.
+    # load in safe interp - pluginmgr ?
+    # list of icons, with icon set, name
+    # - sortable by set, name
+    # selection can be added to 2nd list
+    # entry fields for package name, version, destination path.
+    # swap list layout. (left - all, right - selection)
+
+    widgets
+    layout
+    bindings
+    return
+}
+
+proc widgets {} {
+    widget::toolbar        .t
+    widget::scrolledwindow .a
+    widget::scrolledwindow .s
+
+    ttk::treeview .all
+    ttk::treeview .sel
+
+    .all heading \#0 -text Icon   -image [i image]
+    .sel heading \#0 -text Chosen -image [i image]
+
+    .t add button a -image [i add]
+    .t add button r -image [i delete]
+    .t add button g -image [i brick_go]
+    .t add space _
+    .t add button e -image [i asterisk_orange] \
+	-separator 1
+
+    ttk::button .ai -image [i add]
+    ttk::button .ri -image [i delete]
+    return
+}
+
+proc i {name} { famfamfam::silk get $name }
+
+proc layout {} {
+    .a setwidget .all
+    .s setwidget .sel
+
+    g .t   0 0 1 4
+    g .a   1 0 2 1
+    g .ai  1 1 1 1
+    g .s   1 2 2 1
+    g .ri  1 3 1 1
+
+    gc . row 0 0
+    gc . row 1 0
+    gc . row 2 1
+
+    gc . column 0 1
+    gc . column 1 0
+    gc . column 2 1
+    gc . column 3 0
+
+    return
+}
+
+proc g {w r c rs cs {s swen}} {
+    # padding?
+    grid $w -row $r -column $c -rowspan $rs -columnspan $cs -sticky $s
+    return
+}
+
+proc gc {f t i w} {
+    grid ${t}configure $f $i -weight $w
+    return
+}
+
+proc bindings {} {
+    tooltip::tooltip [.t itemid a] {Add icon set}
+    tooltip::tooltip [.t itemid r] {Drop icons}
+    tooltip::tooltip [.t itemid g] {Generate icon package}
+    tooltip::tooltip [.t itemid e] Exit
+
+    tooltip::tooltip .ai {Add icons to chosen set}
+    tooltip::tooltip .ri {Drop icons from chosen set}
+
+    .t itemconfigure a -command a/add_set
+    .t itemconfigure r -command a/drop
+    .t itemconfigure g -command a/gen_package
+    .t itemconfigure e -command ::exit
+
+    .ai configure -command a/add_icons
+    .ri configure -command a/drop_icons
+
+    bind .all <<TreeviewSelect>> a/all_reselect
+    bind .sel <<TreeviewSelect>> a/sel_reselect
+    return
+}
+
+# # ## ### ##### ######## ############# #####################
+
+proc setup {} {
+    global selected
+
+    set selected 0
+    trace add variable ::selected write a/genable
+
+    foreach is [famfamfam names] {
+	add_set $is
+    }
+
+    # Forced some bindings to initialize button state
+    a/all_reselect
+    a/sel_reselect
+    a/genable
+    return
+}
+
+proc add_set {is} {
+    # Main item for the icon set.
+    .all insert {} end -id [list $is] -text $is
+
+    # And the icons underneath it.
+    foreach i [lsort -dict [famfamfam list $is]] {
+	.all insert $is end -id [list $is $i] -text $i -image [famfamfam get $is $i]
+    }
+    return
+}
+
+# # ## ### ##### ######## ############# #####################
+## data structures required ...
+#
+# Tree item ids are lists of one or two elements.
+# 1-element list => icon set, element is set name
+# 2-element list => icon, elements are set and icon name.
+#
+# This provides us with a natural mapping from icon set and icons to
+# tree items and vice versa.
+
+proc a/all_reselect {} {
+    set n [llength [.all selection]]
+    if {$n} {
+	.ai configure -state normal
+	[.t itemid r] configure -state normal
+    } else {
+	.ai configure -state disabled
+	[.t itemid r] configure -state disabled
+    }
+    return
+}
+
+proc a/sel_reselect {} {
+    set n [llength [.sel selection]]
+    if {$n} {
+	.ri configure -state normal
+    } else {
+	.ri configure -state disabled
+    }
+    return
+}
+
+proc a/genable {args} {
+    global selected
+    if {$selected} {
+	[.t itemid g] configure -state normal
+    } else {
+	[.t itemid g] configure -state disabled
+    }
+    return
+}
+
+proc a/add_set {} {
+    widget::dialog .d \
+	-title {Icon Set Selection} \
+	-synchronous 0 \
+	-command a/add_set/go \
+	-type okcancel
+
+    ttk::frame .d.f
+    ttk::label .d.f.n -text Package:
+    ttk::entry .d.f.name
+
+    widget::validator attach .d.f.name yellow {apply {{text} {
+	set valid [expr {$text ne {}}]
+	.d._buttonbox.ok configure -state [expr {$valid ? "normal":"disabled"}]
+	return $valid
+    }}}
+
+    .d setwidget .d.f
+
+    g .d.f.n    0 0 1 1
+    g .d.f.name 0 1 1 1
+
+    gc .d.f row 0 0
+
+    gc .d.f column 0 0
+    gc .d.f column 1 1
+
+    .d display
+    focus .d.f.name
+    return
+}
+
+proc a/add_set/go {w button} {
+    after idle {
+	widget::validator detach .d.f.name
+	destroy .d
+    }
+
+    if {$button ne "ok"} return
+    .d.f.name instate invalid return
+
+    set data [.d.f.name get]
+
+    # Try to load package as is, or consider that it might a
+    # short-hand for a famfamfam package.
+
+    # ATTENTION: The package is trusted.
+    # BEWARE:    No safe interpreter here.
+    if {![catch {
+	package require {*}$data
+    } msga] || ![catch {
+	package require {*}famfamfam::$data
+    } msgb]} {
+	# Package could be loaded.
+
+	# Now check if this extended the set of known icon sets.
+	# We simply try to add the set, if it is in the tree, it
+	# will be immediately rejected due to the root item
+	# existing.
+
+	# This handles the possibility of having deleted the icon
+	# set from the tree. It will still be known to the fff
+	# core and would be ignored. This way it gets re-added.
+
+	foreach n [famfamfam names] {
+	    catch {
+		add_set $n
+	    }
+	}
+    } else {
+	after idle [list \
+			tk_messageBox \
+			-title {Not Found} \
+			-icon error \
+			-message "$msga\n$msgb" \
+		       ]
+    }
+
+    return
+}
+
+proc a/drop {} {
+    # disabled if no selection available.
+    .all delete [.all selection]
+    return
+}
+
+proc a/add_icons {} {
+    global selected
+    # disabled if no selection available.
+
+    foreach item [.all selection] {
+	if {[itemtype $item is i] ne "icon"} continue
+
+	# add parent, if not yet present.
+	catch {
+	    .sel insert {} end -id [list $is] -text $is
+	} ;#msg ; puts %%$msg
+
+	# add icon, ignore if already present.
+	if {![catch {
+	    .sel insert $is end -id $item -text $i -image [famfamfam get $is $i]
+	} msg]} {
+	    incr selected
+	} else { puts %$msg }
+    }
+    return
+}
+
+proc a/drop_icons {} {
+    # disabled if no selection available.
+    global selected
+    foreach item [.sel selection] {
+	if {[itemtype $item _ _] eq "icon"} {
+	    incr selected -1
+	}
+	.sel delete [list $item]
+    }
+    return
+}
+
+proc a/gen_package {} {
+
+    widget::dialog .d \
+	-title {Icon Set Generation} \
+	-synchronous 0 \
+	-command a/gen/go \
+	-type okcancel
+
+    ttk::frame .d.f
+
+    ttk::label .d.f.n -text Name:
+    ttk::label .d.f.v -text Version:
+    ttk::label .d.f.p -text Path:
+
+    ttk::entry .d.f.name
+    ttk::entry .d.f.version
+    ttk::entry .d.f.path
+
+    .d setwidget .d.f
+
+    g .d.f.n       0 0 1 1 e
+    g .d.f.v       1 0 1 1 e
+    g .d.f.p       2 0 1 1 e
+    g .d.f.name    0 1 1 1
+    g .d.f.version 1 1 1 1
+    g .d.f.path    2 1 1 1
+
+    gc .d.f row 0 0
+    gc .d.f row 1 0
+    gc .d.f row 2 0
+
+    gc .d.f column 0 0
+    gc .d.f column 1 1
+
+    widget::validator attach .d.f.name yellow {apply {{text} {
+	set valid [expr {$text ne {}}]
+	after idle a/valid/gen
+	return $valid
+    }}}
+
+    widget::validator attach .d.f.version yellow {apply {{text} {
+	set valid [expr {($text ne {}) && ![catch {
+	    package vcompare $text 0
+	}]}]
+	after idle a/valid/gen
+	return $valid
+    }}}
+
+    widget::validator attach .d.f.path yellow {apply {{text} {
+	set valid [expr {($text ne {}) && ![file exists $text]}]
+	after idle a/valid/gen
+	return $valid
+    }}}
+
+    .d display
+    focus .d.f.name
+    return
+}
+
+proc a/valid/gen {} {
+    .d._buttonbox.ok configure -state normal
+    .d.f.name    instate invalid {.d._buttonbox.ok configure -state disabled}
+    .d.f.version instate invalid {.d._buttonbox.ok configure -state disabled}
+    .d.f.path    instate invalid {.d._buttonbox.ok configure -state disabled}
+    return
+}
+
+proc a/gen/go {w button} {
+    after idle {
+	widget::validator detach .d.f.name
+	widget::validator detach .d.f.version
+	widget::validator detach .d.f.path
+	destroy .d
+    }
+
+    if {$button ne "ok"} return
+    .d.f.name    instate invalid return
+    .d.f.version instate invalid return
+    .d.f.path    instate invalid return
+
+    set n [.d.f.name    get]
+    set v [.d.f.version get]
+    set p [.d.f.path    get]
+
+    famfamfam::subset new $n $v $p
+    # iterate over tree contents.
+
+    foreach is [.sel children {}] {
+	foreach item [.sel children $is] {
+	    lassign $item is i
+	    famfamfam::subset save $is i [famfamfam path $is $i]
+	}
+    }
+    famfamfam::subset done
+
+    after 1 [list tk_messageBox \
+	-title {Generation Done} \
+	-icon info \
+	-message "Generated package $n $v at $p"]
+    return
+}
+
+# # ## ### ##### ######## ############# #####################
+
+proc itemtype {item va vb} {
+    upvar 1 $va vara $vb varb
+    switch -exact -- [llength $item] {
+	1 {
+	    lassign $item vara
+	    return set
+	}
+	2 {
+	    lassign $item vara varb
+	    return icon
+	}
+	default {
+	    error "Bad item \"$item\""
+	}
+    }
+}
+
+# # ## ### ##### ######## ############# #####################
+if {[catch {
+    main
+}]} { puts $::errorInfo }
+exit 0

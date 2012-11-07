@@ -259,6 +259,9 @@ famfamfam_install_guide
 \fBfiles/intro.n\fR
 famfamfam_introduction
 .TP
+\fBfiles/license.n\fR
+famfamfam_license
+.TP
 \fBfiles/mini.n\fR
 famfamfam::mini
 .TP
@@ -270,6 +273,9 @@ famfamfam::silk
 .TP
 \fBfiles/sources.n\fR
 famfamfam_sources
+.TP
+\fBfiles/subset.n\fR
+famfamfam
 .RE
 flags icons
 .RS
@@ -319,6 +325,9 @@ famfamfam_install_guide
 \fBfiles/intro.n\fR
 famfamfam_introduction
 .TP
+\fBfiles/license.n\fR
+famfamfam_license
+.TP
 \fBfiles/mini.n\fR
 famfamfam::mini
 .TP
@@ -330,6 +339,9 @@ famfamfam::silk
 .TP
 \fBfiles/sources.n\fR
 famfamfam_sources
+.TP
+\fBfiles/subset.n\fR
+famfamfam
 .RE
 images
 .RS
@@ -349,6 +361,9 @@ famfamfam_install_guide
 \fBfiles/intro.n\fR
 famfamfam_introduction
 .TP
+\fBfiles/license.n\fR
+famfamfam_license
+.TP
 \fBfiles/mini.n\fR
 famfamfam::mini
 .TP
@@ -360,6 +375,9 @@ famfamfam::silk
 .TP
 \fBfiles/sources.n\fR
 famfamfam_sources
+.TP
+\fBfiles/subset.n\fR
+famfamfam
 .RE
 mini icons
 .RS

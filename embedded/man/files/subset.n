@@ -1,5 +1,5 @@
 '\"
-'\" Generated from file '/net/nas/data/andreask/Dev/FamFamFam/famfamfam/embedded/man/files/intro.n' by tcllib/doctools with format 'nroff'
+'\" Generated from file '/net/nas/data/andreask/Dev/FamFamFam/famfamfam/embedded/man/files/subset.n' by tcllib/doctools with format 'nroff'
 '\" Copyright (c) 2012 Andreas Kupries <andreas_kupries@users.sourceforge.net>
 '\" Copyright (c) 2012 Documentation, Andreas Kupries
 '\"
@@ -239,10 +239,10 @@ Database Class:	\\fB\\$3\\fR
 .de UL
 \\$1\l'|0\(ul'\\$2
 ..
-.TH "famfamfam_introduction" n 1 doc "FamFamFam Icon Sets For Tcl"
+.TH "famfamfam" n 1 doc "FamFamFam Icon Sets For Tcl"
 .BS
 .SH NAME
-famfamfam_introduction \- FamFamFam - Introduction to FamFamFam
+famfamfam \- FamFamFam Sub Setting
 .SH SYNOPSIS
 package require \fBTk  8.5\fR
 .sp
@@ -252,42 +252,72 @@ package require \fBimg::png \fR
 .sp
 package require \fBfamfamfam  ?1.1?\fR
 .sp
+package require \fBfamfamfam::subset  1\fR
+.sp
+\fB::famfamfam::subset\fR \fBnew\fR \fIname\fR \fIversion\fR \fIpath\fR
+.sp
+\fB::famfamfam::subset\fR \fBsave\fR \fIiconset\fR \fIname\fR \fIpath\fR
+.sp
+\fB::famfamfam::subset\fR \fBdone\fR
+.sp
 .BE
 .SH DESCRIPTION
 Welcome to famfamfam, a set of packages providing access to the
 same-named icon sets created by
 \fIMark James\fR [mailto:mjames@gmail.com], at
 \fIhttp://www.famfamfam.com/lab/icons/\fR
-.SH "RELATED DOCUMENTS"
-.IP [1]
-\fIFamFamFam - How To Get The Sources\fR.
-.IP [2]
-\fIFamFamFam - The Installer's Guide\fR.
-.IP [3]
-\fIFamFamFam - The Developer's Guide\fR.
 .PP
-.SH "SYSTEM ARCHITECTURE"
-FamFamFam consists of one internal core package
-prvoding the commands shared by all the user-visible
-packages, and then one user-visible package per
-icon set made available, for a total of 5 packages
-(1 internal, plus 4 icon sets).
+This package is a helper to ease the creation of icon packages
+which are a subset of one or more icon packages based on the
+\fBfamfamfam\fR core.
 .PP
-The user visible packages are
-.IP [1]
-\fBfamfamfam::flags\fR
-.IP [2]
-\fBfamfamfam::mini\fR
-.IP [3]
-\fBfamfamfam::mint\fR
-.IP [4]
-\fBfamfamfam::silk\fR
+It resides in the Icon Set level of the architecture
+IMAGE: arch_subset
+.SH API
+.TP
+\fB::famfamfam::subset\fR \fBnew\fR \fIname\fR \fIversion\fR \fIpath\fR
+This method starts the generation of a new icon package, with the
+given \fIname\fR and \fIversion\fR.
+The package is assembled in the directory \fIpath\fR.
+The directory will be created if necessary.
+.sp
+The result of the method is the empty string.
+.sp
+An error will be thrown if a package is already in assembly.
+.sp
+After this method has been issued the methods \fBsave\fR and
+\fBdone\fR can be used to add icons to the new package, and to
+complete the assembly.
+.sp
+As a side-effect the \fBfamfamfam\fR core is configured
+with an callback which will automatically \fBsave\fR all icons
+which are loaded by famfamfam core based packages.
+.TP
+\fB::famfamfam::subset\fR \fBsave\fR \fIiconset\fR \fIname\fR \fIpath\fR
+This method adds the specified icon to the icon package started with
+method \fBnew\fR.
+.sp
+The result of the method is the empty string.
+.sp
+An error will be thrown if no package is in assembly.
+.TP
+\fB::famfamfam::subset\fR \fBdone\fR
+This method completes the generation of the icon package started with
+method \fBnew\fR.
+.sp
+The result of the method is the empty string.
+.sp
+An error will be thrown if no package is in assembly.
+.sp
+The auto-\fBsave\fR callback installed by \fBnew\fR is
+removed.
 .PP
-.PP
-The internal package is not described here, as
-it is only of interest to developers modifying and/or
-maintaining famfamfam itself. As such its description
-is found only in the Developer's Guide.
+.SH "BUGS, IDEAS, FEEDBACK"
+This document, and the package it describes, will undoubtedly contain
+bugs and other problems.
+Please report such at the \fIFamFamFam Tcl Tracker\fR [http://chiselapp.com/user/andreas_kupries/repository/famfamfam].
+Please also report any ideas for enhancements you may have for either
+package and/or documentation.
 .SH KEYWORDS
 famfamfam, icons, images
 .SH CATEGORY

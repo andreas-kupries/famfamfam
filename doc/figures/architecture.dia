@@ -24,8 +24,8 @@ proc area {label args} {
 }
 
 down
-set boxwidth   [90 mm]
-set movelength  [5 mm]
+set boxwidth   [120 mm]
+set movelength   [5 mm]
 
 block {
     set hx [50 mm]
@@ -38,6 +38,7 @@ block {
 	xbox famfamfam::flags
 	move
 	xbox famfamfam::mini
+	group { move ; xbox famfamfam::subset }
 	south ; move
 	xbox famfamfam::mint
 	west ; move

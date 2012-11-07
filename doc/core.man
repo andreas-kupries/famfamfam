@@ -1,5 +1,5 @@
 [comment {-*- tcl -*- --- doctools --- manpage}]
-[manpage_begin famfamfam n 1]
+[manpage_begin famfamfam n 1.1]
 [include include/module.inc]
 [titledesc {FamFamFam Core}]
 [comment {% % %% %%% %%%%% %%%%%%%% %%%%%%%%%%%%% %%%%%%%%%%%%%%%%%%%%%}]
@@ -17,9 +17,43 @@ provides the common functionality shared by all.
 
 [list_begin definitions]
 [comment ============================================================]
-[call [cmd ::famfamfam::Declare] [arg name] [arg icondir] [opt [arg pattern]]]
+[call [cmd ::famfamfam] [method intercept] [arg cmdprefix]]
 
-This command registers the icons found in the icon directory
+This method adds/removes a callback invoked whenever an image is loaded.
+
+This means that the callback is only invoked the first time an image is
+requested and thus not in the in-memory cache yet. Any further requests
+served from the cache are not reported.
+
+[para] Setting an empty string as callback deactivates it.
+
+[para] The signature of the callback is
+
+[list_begin definitions]
+[call [arg {{*}cmdprefix}] [arg set] [arg name] [arg path]]
+
+The arguments to the callback provide the name of the icon [arg set],
+the [arg name] of the icon itself, and the [arg path] the icon was
+loaded from.
+
+[para] The result of the callback is ignored.
+
+[para] Any error thrown by the callback will prevent the icon from
+being loaded, i.e. the [method get] method of the icon set will be
+aborted.
+
+[list_end]
+
+[comment ============================================================]
+[call [cmd ::famfamfam] [method names]]
+
+This method returns a list containing the names of all [method declare]d
+icon sets.
+
+[comment ============================================================]
+[call [cmd ::famfamfam] [method declare] [arg name] [arg icondir] [opt [arg pattern]]]
+
+This method registers the icons found in the icon directory
 [arg icondir] and matching the [arg pattern] as the icon set
 [arg name].
 
@@ -29,10 +63,43 @@ If the [arg pattern] is not specified it defaults to [const *.png].
 [list_begin enumerated]
 [enum][cmd ::famfamfam] [arg name] [method get]
 [enum][cmd ::famfamfam] [arg name] [method list]
+[enum][cmd ::famfamfam] [arg name] [method path]
 [list_end]
-for the new icon set.
+for the new icon set. These are aliases to the core methods below,
+with the name of the icon set preset.
 
 [para] The command returns the empty string as its result.
+
+[comment ============================================================]
+[call [cmd ::famfamfam::Declare] [arg name] [arg icondir] [opt [arg pattern]]]
+
+This command is an alias of [cmd {famfamfam declare}], available for
+compatibility with packages based on the 1.0 API.
+
+[comment ============================================================]
+[call [cmd ::famfamfam] [method get] [arg iconset] [arg icon]]
+
+This method returns a Tk image holding the [arg icon] in icon set
+[arg iconset]. An error will be thrown if either icon set or icon
+are not valid.
+
+[comment ============================================================]
+[call [cmd ::famfamfam] [method path] [arg iconset] [arg icon]]
+
+This method returns the path of the image file for the [arg icon]
+in icon set [arg iconset]. An error will be thrown if either icon set
+or icon are not valid.
+
+[comment ============================================================]
+[call [cmd ::famfamfam] [method list] [arg iconset] [opt [arg pattern]]]
+
+This method returns a list containing the names of all valid icons in
+the icon set [arg iconset]. An error will be thrown if the
+[arg iconset] is not valid.
+
+If the [arg pattern] is specified then only names matching that
+pattern are returned. Matching is done by [cmd {string match}],
+i.e. the argument is a [term {glob pattern}].
 
 [list_end]
 

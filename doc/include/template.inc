@@ -1,5 +1,5 @@
 [comment {-*- tcl -*- --- !doctools --- manpage}]
-[manpage_begin famfamfam::[vset NAME] n 1]
+[manpage_begin famfamfam::[vset NAME] n 1.0.1]
 [include module.inc]
 [titledesc "FamFamFam [vset UNAME] Icon Set"]
 [keywords "icon set [vset NAME]"]
@@ -36,6 +36,14 @@ This command returns a list containing the names of all valid
 If the [arg pattern] is specified then only names matching that
 pattern are returned. Matching is done by [cmd {string match}],
 i.e. the argument is a [term {glob pattern}].
+
+[comment ============================================================]
+[call [cmd "::famfamfam [vset NAME] path"] [arg name]]
+
+This command returns the absolute path of the file containing the
+[vset NAME] icon whose name was specified as argument of the
+command. An error will be thrown instead if the [arg name] is not
+valid.
 
 [list_end]
 

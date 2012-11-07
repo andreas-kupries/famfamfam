@@ -11,22 +11,27 @@ proc famfamfam {} { box famfamfam color red }
 
 proc famfamfam_flags {} {
     box famfamfam::flags color red
-    group { down ; --- ; r ; --- 5.5 ; d ; ---> } ;# famfamfam
+    group { down ; --- ; r ; --- 9 ; d ; ---> 0.5 } ;# famfamfam
 }
 
 proc famfamfam_mini {} {
     box famfamfam::mini color red
-    group { down ; --- 0.5 ; r ; --- ; d ; ---> 1.5 ; famfamfam }
+    group { down ; --- 0.5 ; r ; --- 4 ; d ; ---> } ;# famfamfam
 }
 
 proc famfamfam_mint {} {
     box famfamfam::mint color red
-    group { down ; --- 0.5 ; l ; --- 1.5 ; d ; ---> 1.5 } ;# famfamfam
+    group { down ; ---> 2.5 ; famfamfam }
 }
 
 proc famfamfam_silk {} {
     box famfamfam::silk color red
-    group { down ; --- ; l ; --- 6 ; d ; ---> } ;# famfamfam
+    group { down ; --- 0.5 ; l ; --- 4 ; d ; ---> } ;# famfamfam
+}
+
+proc famfamfam_subset {} {
+    box famfamfam::subset color red
+    group { down ; --- ; l ; --- 9 ; d ; ---> 0.5 } ;# famfamfam
 }
 
 ## ====================================================================
@@ -36,7 +41,8 @@ proc layout {} {
     famfamfam_flags ; move
     famfamfam_mini  ; move
     famfamfam_mint  ; move
-    famfamfam_silk
+    famfamfam_silk  ; move
+    famfamfam_subset
 }
 
 ## ====================================================================

@@ -1,5 +1,5 @@
 '\"
-'\" Generated from file '/home/aku/Projects/FamFamFam/famfamfam/embedded/man/files/mint.n' by tcllib/doctools with format 'nroff'
+'\" Generated from file 'include/template.inc' by tcllib/doctools with format 'nroff'
 '\" Copyright (c) 2012 Andreas Kupries <andreas_kupries@users.sourceforge.net>
 '\" Copyright (c) 2012 Documentation, Andreas Kupries
 '\"
@@ -239,7 +239,7 @@ Database Class:	\\fB\\$3\\fR
 .de UL
 \\$1\l'|0\(ul'\\$2
 ..
-.TH "famfamfam::mint" n 1 doc "FamFamFam Icon Sets For Tcl"
+.TH "famfamfam::mint" n 1.0.1 doc "FamFamFam Icon Sets For Tcl"
 .BS
 .SH NAME
 famfamfam::mint \- FamFamFam Mint Icon Set
@@ -250,13 +250,15 @@ package require \fBTcl  8.5\fR
 .sp
 package require \fBimg::png \fR
 .sp
-package require \fBfamfamfam  ?1?\fR
+package require \fBfamfamfam  ?1.1?\fR
 .sp
 package require \fBfamfamfam::mint  ?1?\fR
 .sp
 \fB::famfamfam mint get\fR \fIname\fR
 .sp
 \fB::famfamfam mint list\fR ?\fIpattern\fR?
+.sp
+\fB::famfamfam mint path\fR \fIname\fR
 .sp
 .BE
 .SH DESCRIPTION
@@ -284,16 +286,21 @@ mint icons accessible through the package.
 If the \fIpattern\fR is specified then only names matching that
 pattern are returned. Matching is done by \fBstring match\fR,
 i.e. the argument is a \fIglob pattern\fR.
+.TP
+\fB::famfamfam mint path\fR \fIname\fR
+This command returns the absolute path of the file containing the
+mint icon whose name was specified as argument of the
+command. An error will be thrown instead if the \fIname\fR is not
+valid.
 .PP
 .SH EXAMPLES
-.CS
-
+.nf
 
 package require famfamfam::mint
 set w [famfamfam mint list w*]
 set page [famfamfam mint get page]
 
-.CE
+.fi
 .SH REFERENCES
 .IP [1]
 \fIHomepage of the FamFam Mint Icon Set\fR [http://www.famfamfam.com/lab/icons/mint]

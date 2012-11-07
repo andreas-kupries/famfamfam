@@ -1,5 +1,5 @@
 '\"
-'\" Generated from file '/home/aku/Projects/FamFamFam/famfamfam/embedded/man/files/core.n' by tcllib/doctools with format 'nroff'
+'\" Generated from file '/net/nas/data/andreask/Dev/FamFamFam/famfamfam/embedded/man/files/core.n' by tcllib/doctools with format 'nroff'
 '\" Copyright (c) 2012 Andreas Kupries <andreas_kupries@users.sourceforge.net>
 '\" Copyright (c) 2012 Documentation, Andreas Kupries
 '\"
@@ -239,7 +239,7 @@ Database Class:	\\fB\\$3\\fR
 .de UL
 \\$1\l'|0\(ul'\\$2
 ..
-.TH "famfamfam" n 1 doc "FamFamFam Icon Sets For Tcl"
+.TH "famfamfam" n 1.1 doc "FamFamFam Icon Sets For Tcl"
 .BS
 .SH NAME
 famfamfam \- FamFamFam Core
@@ -250,9 +250,23 @@ package require \fBTcl  8.5\fR
 .sp
 package require \fBimg::png \fR
 .sp
-package require \fBfamfamfam  ?1?\fR
+package require \fBfamfamfam  ?1.1?\fR
+.sp
+\fB::famfamfam\fR \fBintercept\fR \fIcmdprefix\fR
+.sp
+\fI{*}cmdprefix\fR \fIset\fR \fIname\fR \fIpath\fR
+.sp
+\fB::famfamfam\fR \fBnames\fR
+.sp
+\fB::famfamfam\fR \fBdeclare\fR \fIname\fR \fIicondir\fR ?\fIpattern\fR?
 .sp
 \fB::famfamfam::Declare\fR \fIname\fR \fIicondir\fR ?\fIpattern\fR?
+.sp
+\fB::famfamfam\fR \fBget\fR \fIiconset\fR \fIicon\fR
+.sp
+\fB::famfamfam\fR \fBpath\fR \fIiconset\fR \fIicon\fR
+.sp
+\fB::famfamfam\fR \fBlist\fR \fIiconset\fR ?\fIpattern\fR?
 .sp
 .BE
 .SH DESCRIPTION
@@ -268,8 +282,35 @@ It resides in the Core level of the architecture
 IMAGE: arch_core
 .SH API
 .TP
-\fB::famfamfam::Declare\fR \fIname\fR \fIicondir\fR ?\fIpattern\fR?
-This command registers the icons found in the icon directory
+\fB::famfamfam\fR \fBintercept\fR \fIcmdprefix\fR
+This method adds/removes a callback invoked whenever an image is loaded.
+This means that the callback is only invoked the first time an image is
+requested and thus not in the in-memory cache yet. Any further requests
+served from the cache are not reported.
+.sp
+Setting an empty string as callback deactivates it.
+.sp
+The signature of the callback is
+.RS
+.TP
+\fI{*}cmdprefix\fR \fIset\fR \fIname\fR \fIpath\fR
+The arguments to the callback provide the name of the icon \fIset\fR,
+the \fIname\fR of the icon itself, and the \fIpath\fR the icon was
+loaded from.
+.sp
+The result of the callback is ignored.
+.sp
+Any error thrown by the callback will prevent the icon from
+being loaded, i.e. the \fBget\fR method of the icon set will be
+aborted.
+.RE
+.TP
+\fB::famfamfam\fR \fBnames\fR
+This method returns a list containing the names of all \fBdeclare\fRd
+icon sets.
+.TP
+\fB::famfamfam\fR \fBdeclare\fR \fIname\fR \fIicondir\fR ?\fIpattern\fR?
+This method registers the icons found in the icon directory
 \fIicondir\fR and matching the \fIpattern\fR as the icon set
 \fIname\fR.
 If the \fIpattern\fR is not specified it defaults to \fB*.png\fR.
@@ -280,11 +321,35 @@ The command creates the accessor commands
 \fB::famfamfam\fR \fIname\fR \fBget\fR
 .IP [2]
 \fB::famfamfam\fR \fIname\fR \fBlist\fR
+.IP [3]
+\fB::famfamfam\fR \fIname\fR \fBpath\fR
 .RE
-.IP
-for the new icon set.
+for the new icon set. These are aliases to the core methods below,
+with the name of the icon set preset.
 .sp
 The command returns the empty string as its result.
+.TP
+\fB::famfamfam::Declare\fR \fIname\fR \fIicondir\fR ?\fIpattern\fR?
+This command is an alias of \fBfamfamfam declare\fR, available for
+compatibility with packages based on the 1.0 API.
+.TP
+\fB::famfamfam\fR \fBget\fR \fIiconset\fR \fIicon\fR
+This method returns a Tk image holding the \fIicon\fR in icon set
+\fIiconset\fR. An error will be thrown if either icon set or icon
+are not valid.
+.TP
+\fB::famfamfam\fR \fBpath\fR \fIiconset\fR \fIicon\fR
+This method returns the path of the image file for the \fIicon\fR
+in icon set \fIiconset\fR. An error will be thrown if either icon set
+or icon are not valid.
+.TP
+\fB::famfamfam\fR \fBlist\fR \fIiconset\fR ?\fIpattern\fR?
+This method returns a list containing the names of all valid icons in
+the icon set \fIiconset\fR. An error will be thrown if the
+\fIiconset\fR is not valid.
+If the \fIpattern\fR is specified then only names matching that
+pattern are returned. Matching is done by \fBstring match\fR,
+i.e. the argument is a \fIglob pattern\fR.
 .PP
 .SH "BUGS, IDEAS, FEEDBACK"
 This document, and the package it describes, will undoubtedly contain

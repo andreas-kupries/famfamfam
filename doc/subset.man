@@ -1,0 +1,70 @@
+[comment {-*- tcl -*- --- doctools --- manpage}]
+[manpage_begin famfamfam::subset n 1]
+[include include/module.inc]
+[require famfamfam::subset 1]
+[titledesc {FamFamFam Sub Setting}]
+[comment {% % %% %%% %%%%% %%%%%%%% %%%%%%%%%%%%% %%%%%%%%%%%%%%%%%%%%%}]
+[description]
+[include include/welcome.inc]
+
+[para] This package is a helper to ease the creation of icon packages
+which are a subset of one or more icon packages based on the
+[package famfamfam] core.
+
+[para] It resides in the Icon Set level of the architecture
+[image arch_subset]
+
+[comment {% % %% %%% %%%%% %%%%%%%% %%%%%%%%%%%%% %%%%%%%%%%%%%%%%%%%%%}]
+[section API]
+
+[list_begin definitions]
+[comment ============================================================]
+[call [cmd ::famfamfam::subset] [method new] [arg name] [arg version] [arg path]]
+
+This method starts the generation of a new icon package, with the
+given [arg name] and [arg version].
+
+The package is assembled in the directory [arg path].
+
+The directory will be created if necessary.
+
+[para] The result of the method is the empty string.
+
+[para] An error will be thrown if a package is already in assembly.
+
+[para] After this method has been issued the methods [method save] and
+[method done] can be used to add icons to the new package, and to
+complete the assembly.
+
+[para] As a side-effect the [package famfamfam] core is configured
+with an callback which will automatically [method save] all icons
+which are loaded by famfamfam core based packages.
+
+[comment ============================================================]
+[call [cmd ::famfamfam::subset] [method save] [arg iconset] [arg name] [arg path]]
+
+This method adds the specified icon to the icon package started with
+method [method new].
+
+[para] The result of the method is the empty string.
+
+[para] An error will be thrown if no package is in assembly.
+
+[comment ============================================================]
+[call [cmd ::famfamfam::subset] [method done]]
+
+This method completes the generation of the icon package started with
+method [method new].
+
+[para] The result of the method is the empty string.
+
+[para] An error will be thrown if no package is in assembly.
+
+[para] The auto-[method save] callback installed by [method new] is
+removed.
+
+[list_end]
+
+[comment {% % %% %%% %%%%% %%%%%%%% %%%%%%%%%%%%% %%%%%%%%%%%%%%%%%%%%%}]
+[include include/feedback.inc]
+[manpage_end]

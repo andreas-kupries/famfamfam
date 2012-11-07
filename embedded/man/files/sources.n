@@ -1,5 +1,5 @@
 '\"
-'\" Generated from file '/home/aku/Projects/FamFamFam/famfamfam/embedded/man/files/sources.n' by tcllib/doctools with format 'nroff'
+'\" Generated from file '/net/nas/data/andreask/Dev/FamFamFam/famfamfam/embedded/man/files/sources.n' by tcllib/doctools with format 'nroff'
 '\" Copyright (c) 2012 Andreas Kupries <andreas_kupries@users.sourceforge.net>
 '\" Copyright (c) 2012 Documentation, Andreas Kupries
 '\"
@@ -250,7 +250,7 @@ package require \fBTcl  8.5\fR
 .sp
 package require \fBimg::png \fR
 .sp
-package require \fBfamfamfam  ?1?\fR
+package require \fBfamfamfam  ?1.1?\fR
 .sp
 .BE
 .SH DESCRIPTION
@@ -295,21 +295,19 @@ Binaries for popular platforms can be found directly at its
 \fIdownload page\fR [http://www.fossil-scm.org/download.html].
 .PP
 With that tool available the full history can be retrieved via:
-.CS
-
+.nf
 
     fossil clone  http://chiselapp.com/user/andreas_kupries/repository/famfamfam  famfamfam.fossil
 
-.CE
+.fi
 followed by
-.CS
-
+.nf
 
     mkdir famfamfam
     cd famfamfam
     fossil open ../famfamfam.fossil
 
-.CE
+.fi
 to get a checkout of the head of the trunk.
 .SH "BUGS, IDEAS, FEEDBACK"
 This document, and the package it describes, will undoubtedly contain

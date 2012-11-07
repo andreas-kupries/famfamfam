@@ -92,7 +92,7 @@
     }
 --></style>
 </head>
-<! -- Generated from file 'doc/files/mint.html' by tcllib/doctools with format 'html'
+<! -- Generated from file 'include/template.inc' by tcllib/doctools with format 'html'
    -->
 <! -- Copyright &copy; 2012 Andreas Kupries &lt;andreas_kupries@users.sourceforge.net&gt;   -- Copyright &copy; 2012 Documentation, Andreas Kupries
    -->
@@ -104,7 +104,7 @@
 | <a href="../toc.html">Table Of Contents</a>
 | <a href="../../index.html">Keyword Index</a>
 ] <hr>
-<h1 class="title">famfamfam::mint(n) 1 doc &quot;FamFamFam Icon Sets For Tcl&quot;</h1>
+<h1 class="title">famfamfam::mint(n) 1.0.1 doc &quot;FamFamFam Icon Sets For Tcl&quot;</h1>
 <div id="name" class="section"><h2><a name="name">Name</a></h2>
 <p>famfamfam::mint - FamFamFam Mint Icon Set</p>
 </div>
@@ -129,12 +129,13 @@
 <li>package require <b class="pkgname">Tk 8.5</b></li>
 <li>package require <b class="pkgname">Tcl 8.5</b></li>
 <li>package require <b class="pkgname">img::png</b></li>
-<li>package require <b class="pkgname">famfamfam <span class="opt">?1?</span></b></li>
+<li>package require <b class="pkgname">famfamfam <span class="opt">?1.1?</span></b></li>
 <li>package require <b class="pkgname">famfamfam::mint <span class="opt">?1?</span></b></li>
 </ul>
 <ul class="syntax">
 <li><a href="#1"><b class="cmd">::famfamfam mint get</b> <i class="arg">name</i></a></li>
 <li><a href="#2"><b class="cmd">::famfamfam mint list</b> <span class="opt">?<i class="arg">pattern</i>?</span></a></li>
+<li><a href="#3"><b class="cmd">::famfamfam mint path</b> <i class="arg">name</i></a></li>
 </ul>
 </div>
 </div>
@@ -161,6 +162,11 @@ mint icons accessible through the package.
 If the <i class="arg">pattern</i> is specified then only names matching that
 pattern are returned. Matching is done by <b class="cmd">string match</b>,
 i.e. the argument is a <i class="term">glob pattern</i>.</p></dd>
+<dt><a name="3"><b class="cmd">::famfamfam mint path</b> <i class="arg">name</i></a></dt>
+<dd><p>This command returns the absolute path of the file containing the
+mint icon whose name was specified as argument of the
+command. An error will be thrown instead if the <i class="arg">name</i> is not
+valid.</p></dd>
 </dl>
 </div>
 <div id="section3" class="section"><h2><a name="section3">Examples</a></h2>

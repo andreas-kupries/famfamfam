@@ -2,22 +2,25 @@
 # A Tcl packaging of the FamFamFam Icon set 'Flags'.
 # Copyright (c) 2012 Andreas Kupries <andreas_kupries@users.sourceforge.net>
 
+# @mdgen OWNER: flags/*
+# @mdgen OWNER: flags/icons/*
+
 # # ## ### ##### ######## ############# #####################
 ## Requisites
 
-package require famfamfam
+package require famfamfam 1.1
 
 # # ## ### ##### ######## ############# #####################
 ## Initialization
 
 ::apply {{selfdir} {
-    ::famfamfam::Declare flags $selfdir/flags/icons
+    ::famfamfam declare flags $selfdir/flags/icons
 }} [file dirname [file normalize [info script]]]
 
 # # ## ### ##### ######## ############# #####################
 ## Ready
 
-package provide famfamfam::flags 1
+package provide famfamfam::flags 1.0.1
 return
 
 # # ## ### ##### ######## ############# #####################

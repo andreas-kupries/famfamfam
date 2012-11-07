@@ -20,9 +20,30 @@ package require img::png
 namespace eval ::famfamfam {}
 
 # # ## ### ##### ######## ############# #####################
-## API
+## API.
 
-proc ::famfamfam::Declare {name icondir {pattern *.png}} {
+proc ::famfamfam::intercept {cmdprefix} {
+    variable intercept
+    if {$cmdprefix eq {}} { set cmdprefix  ::famfamfam::Nop }
+    set intercept $cmdprefix
+    return
+}
+
+proc ::famfamfam::names {} {
+    variable known
+    return [dict keys $known]
+}
+
+# Compatibility alias.
+interp alias {} ::famfamfam::Declare {} ::famfamfam::declare
+
+proc ::famfamfam::declare {name icondir {pattern *.png}} {
+    variable known
+    if {[dict exists $known $name]} {
+        return -code error -errorcode {FAMFAMFAM CORE ICONSET KNOWN} \
+            "Bad icon set \"$name\", already known"
+    }
+
     namespace eval ::famfamfam::$name {
 	variable icon
 	variable cache
@@ -33,44 +54,101 @@ proc ::famfamfam::Declare {name icondir {pattern *.png}} {
     namespace upvar ::famfamfam::$name \
 	icon icon cache cache
 
-    foreach i [glob -directory $icondir $pattern] {
+    foreach i [glob -nocomplain -directory $icondir $pattern] {
         set iname [file rootname [file tail $i]]
         set icon($iname) $i
     }
 
-    proc ::famfamfam::${name}::get  {icon}        "[list ::famfamfam::Get  $name] \$icon"
-    proc ::famfamfam::${name}::list {{pattern *}} "[list ::famfamfam::List $name] \$pattern"
+    proc ::famfamfam::${name}::get  {icon}        "[::list ::famfamfam get  $name] \$icon"
+    proc ::famfamfam::${name}::list {{pattern *}} "[::list ::famfamfam list $name] \$pattern"
+    proc ::famfamfam::${name}::path {icon}        "[::list ::famfamfam path $name] \$icon"
 
     namespace eval ::famfamfam::$name {
-        namespace export get list
+        namespace export get list path
         namespace ensemble create
     }
+
+    dict set known $name .
     return
 }
 
-proc ::famfamfam::List {iconset {pattern *}} {
+proc ::famfamfam::list {iconset {pattern *}} {
+    variable known
+    if {![dict exists $known $iconset]} {
+        return -code error -errorcode {FAMFAMFAM CORE ICONSET UNKNOWN} \
+            "Bad icon set \"$iconset\", not known"
+    }
+
     namespace upvar ::famfamfam::$iconset \
 	icon icon
     return [array names icon $pattern]
 }
 
-proc ::famfamfam::Get {iconset iconname} {
+proc ::famfamfam::get {iconset iconname} {
+    variable known
+    if {![dict exists $known $iconset]} {
+        return -code error -errorcode {FAMFAMFAM CORE ICONSET UNKNOWN} \
+            "Bad icon set \"$iconset\", not known"
+    }
+
+    variable intercept
     namespace upvar ::famfamfam::$iconset \
 	icon icon cache cache
 
     if {![info exists icon($iconname)]} {
-        return -code error "Bad $iconset icon name \"$iconname\""
+        return -code error \
+            -errorcode {FAMFAMFAM CORE ICON UNKNOWN} \
+            "Bad $iconset icon \"$iconname\", not known"
+    }
+    # Validate the cache, maybe the image was inadvertently deleted.
+    # In that case we have to force regeneration.
+    if {[info exists cache($iconname)] &&
+        [catch {image type $cache($iconname)}]} {
+        unset cache($iconname)
     }
     if {![info exists cache($iconname)]} {
         set cache($iconname) [image create photo -file $icon($iconname)]
+
+        {*}$intercept $iconset $iconname $icon($iconname)
     }
     return $cache($iconname)
 }
+
+proc ::famfamfam::path {iconset iconname} {
+    variable known
+    if {![dict exists $known $iconset]} {
+        return -code error -errorcode {FAMFAMFAM CORE ICONSET UNKNOWN} \
+            "Bad icon set \"$iconset\", not known"
+    }
+
+    namespace upvar ::famfamfam::$iconset \
+	icon icon
+
+    if {![info exists icon($iconname)]} {
+        return -code error \
+            -errorcode {FAMFAMFAM CORE ICON UNKNOWN} \
+            "Bad $iconset icon \"$iconname\", not known"
+    }
+
+    return $icon($iconname)
+}
+
+# # ## ### ##### ######## ############# #####################
+## Internal helpers
+
+# Standard reporting hook, doing nothing.
+proc ::famfamfam::Nop {args} {}
 
 # # ## ### ##### ######## ############# #####################
 ## Export
 
 namespace eval ::famfamfam {
+    # Set of known icon sets, implemented as dictionary
+    variable known {}
+
+    # Callback to report loaded images to.
+    variable intercept ::famfamfam::Nop
+
     namespace export {[a-z]*}
     namespace ensemble create
 }
@@ -78,7 +156,7 @@ namespace eval ::famfamfam {
 # # ## ### ##### ######## ############# #####################
 ## Ready
 
-package provide famfamfam 1
+package provide famfamfam 1.1
 return
 
 # # ## ### ##### ######## ############# #####################

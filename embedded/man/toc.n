@@ -248,6 +248,9 @@ doc
 \fBfamfamfam_introduction\fR
 \fIfiles/intro.n\fR: FamFamFam - Introduction to FamFamFam
 .TP
+\fBfamfamfam_license\fR
+\fIfiles/license.n\fR: FamFamFam - License
+.TP
 \fBfamfamfam_devguide\fR
 \fIfiles/devguide.n\fR: FamFamFam - The Developer's Guide
 .TP
@@ -268,3 +271,6 @@ doc
 .TP
 \fBfamfamfam::silk\fR
 \fIfiles/silk.n\fR: FamFamFam Silk Icon Set
+.TP
+\fBfamfamfam\fR
+\fIfiles/subset.n\fR: FamFamFam Sub Setting

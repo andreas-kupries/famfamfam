@@ -9,6 +9,10 @@ set packages {
     {famfamfam_flags flags.tcl 1}
     {famfamfam_mini  mini.tcl  1}
     {famfamfam_mint  mint.tcl  1}
+    {famfamfam_subset subset.tcl 0}
+}
+set applications {
+    icon_selector
 }
 proc main {} {
     global argv tcl_platform tag
@@ -122,15 +126,17 @@ proc _recipes {} {
     puts [lsort -dict $r]
     return
 }
-proc Hdrop {} { return "?destination?\n\tUninstall all packages.\n\tdestination = path of package directory, default \[info library\]." }
+proc Hdrop {} { return "?destination?\n\tUninstall all packages and applications.\n\tdestination = path of package directory, default \[info library\]." }
 proc _drop {{ldir {}}} {
-    global packages
+    global packages applications
     if {[llength [info level 0]] < 2} {
 	set ldir [info library]
+	set bdir [file dirname [info nameofexecutable]]
+    } else {
+	set bdir [file dirname $ldir]/bin
     }
 
     foreach item $packages {
-
 	foreach {dir vfile icons} $item break
 	set name $dir
 	set src      [file dirname $::me]/$vfile
@@ -141,6 +147,13 @@ proc _drop {{ldir {}}} {
 	puts -nonewline "Removed package:     "
 	tag ok
 	puts $ldir/$name$version
+    }
+
+    foreach item $applications {
+	file delete -force $bdir/$item
+	puts -nonewline "Removed application: "
+	tag ok
+	puts $bdir/$item
     }
     return
 }
@@ -171,11 +184,23 @@ proc _figures {} {
     exec 2>@ stderr >@ stdout dia convert -t -o . png {*}[glob *.dia]
     return
 }
-proc Hinstall {} { return "?destination?\n\tInstall all packages.\n\tdestination = path of package directory, default \[info library\]." }
+proc Hshow-figures {} { return "\n\tShow the figures." }
+proc _show-figures {} {
+    cd [file dirname $::me]/doc/figures
+
+    # TODO == require dia packages, or dia-as-package
+    puts "Showing the figures (dia)..."
+    exec 2>@ stderr >@ stdout dia show -t {*}[glob *.dia]
+    return
+}
+proc Hinstall {} { return "?destination?\n\tInstall all packages and applications.\n\tdestination = path of package directory, default \[info library\]." }
 proc _install {{ldir {}}} {
-    global packages
+    global packages applications
     if {$ldir eq {}} {
 	set ldir [info library]
+	set bdir [file dirname [info nameofexecutable]]
+    } else {
+	set bdir [file dirname $ldir]/bin
     }
 
     # Create directories, might not exist.
@@ -199,9 +224,38 @@ proc _install {{ldir {}}} {
 	puts  $c "package ifneeded $pkg $version \[list ::apply {{dir} {source \$dir/$vfile}} \$dir\]"
 	close $c
 
+	set    c [open $ldir/${name}-new/teapot.txt w]
+	puts $c "Package $pkg $version"
+	puts $c "Meta platform tcl"
+	puts $c "Meta entrykeep ."
+	puts $c "Meta included pkgIndex.tcl"
+	puts $c "Meta included $vfile"
+	puts $c "Meta subject icon famfamfam "
+	puts $c "Meta build::date [clock format [clock seconds] -format {%Y-%m-%d}]"
+	puts $c "Meta author \{Andreas Kupries\}"
+	puts $c "Meta as::origin http://chiselapp.com/user/andreas_kupries/repository/famfamfam/home"
+	puts $c "Meta category icons"
+	puts $c "Meta license BSD"
+	if {$icons} {
+	    set icons [file root $vfile]
+	    puts $c "Meta require famfamfam"
+	    puts $c "Meta subject $icons"
+	    puts $c "Meta included $icons"
+	    puts $c "Meta description Binding to the famfamfam $icons icon set"
+	} else {
+	    puts $c "Meta description Common code for the famfamfam icon bindings"
+	}
+	close $c
+
 	file delete -force $ldir/$name$version
 	file rename        $ldir/${name}-new     $ldir/$name$version
 	puts "Installed package:     $ldir/$name$version"
+    }
+
+    foreach item $applications {
+	file copy -force [file dirname $::me]/$item $bdir/${item}-new
+	file rename $bdir/${item}-new     $bdir/$item
+	puts "Installed application: $bdir/$item"
     }
     return
 }
