@@ -324,6 +324,7 @@ The command creates the accessor commands
 .IP [3]
 \fB::famfamfam\fR \fIname\fR \fBpath\fR
 .RE
+.IP
 for the new icon set. These are aliases to the core methods below,
 with the name of the icon set preset.
 .sp

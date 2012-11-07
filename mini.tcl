@@ -5,6 +5,9 @@
 # @mdgen OWNER: mini/*
 # @mdgen OWNER: mini/icons/*
 
+# Kettle
+# @owns: mini
+
 # # ## ### ##### ######## ############# #####################
 ## Requisites
 

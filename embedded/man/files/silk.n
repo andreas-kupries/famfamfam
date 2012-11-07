@@ -1,5 +1,5 @@
 '\"
-'\" Generated from file 'include/template.inc' by tcllib/doctools with format 'nroff'
+'\" Generated from file '/net/nas/data/andreask/Dev/FamFamFam/famfamfam/embedded/man/files/silk.n' by tcllib/doctools with format 'nroff'
 '\" Copyright (c) 2012 Andreas Kupries <andreas_kupries@users.sourceforge.net>
 '\" Copyright (c) 2012 Documentation, Andreas Kupries
 '\"
@@ -294,13 +294,14 @@ command. An error will be thrown instead if the \fIname\fR is not
 valid.
 .PP
 .SH EXAMPLES
-.nf
+.CS
+
 
 package require famfamfam::silk
 set w [famfamfam silk list w*]
 set wand [famfamfam silk get wand]
 
-.fi
+.CE
 .SH REFERENCES
 .IP [1]
 \fIHomepage of the FamFam Silk Icon Set\fR [http://www.famfamfam.com/lab/icons/silk]

@@ -272,5 +272,5 @@ doc
 \fBfamfamfam::silk\fR
 \fIfiles/silk.n\fR: FamFamFam Silk Icon Set
 .TP
-\fBfamfamfam\fR
+\fBfamfamfam::subset\fR
 \fIfiles/subset.n\fR: FamFamFam Sub Setting

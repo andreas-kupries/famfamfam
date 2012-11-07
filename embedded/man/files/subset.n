@@ -239,10 +239,10 @@ Database Class:	\\fB\\$3\\fR
 .de UL
 \\$1\l'|0\(ul'\\$2
 ..
-.TH "famfamfam" n 1 doc "FamFamFam Icon Sets For Tcl"
+.TH "famfamfam::subset" n 1 doc "FamFamFam Icon Sets For Tcl"
 .BS
 .SH NAME
-famfamfam \- FamFamFam Sub Setting
+famfamfam::subset \- FamFamFam Sub Setting
 .SH SYNOPSIS
 package require \fBTk  8.5\fR
 .sp

@@ -275,7 +275,7 @@ famfamfam::silk
 famfamfam_sources
 .TP
 \fBfiles/subset.n\fR
-famfamfam
+famfamfam::subset
 .RE
 flags icons
 .RS
@@ -341,7 +341,7 @@ famfamfam::silk
 famfamfam_sources
 .TP
 \fBfiles/subset.n\fR
-famfamfam
+famfamfam::subset
 .RE
 images
 .RS
@@ -377,7 +377,7 @@ famfamfam::silk
 famfamfam_sources
 .TP
 \fBfiles/subset.n\fR
-famfamfam
+famfamfam::subset
 .RE
 mini icons
 .RS

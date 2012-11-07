@@ -5,6 +5,9 @@
 # @mdgen OWNER: silk/*
 # @mdgen OWNER: silk/icons/*
 
+# Kettle
+# @owns: silk
+
 # # ## ### ##### ######## ############# #####################
 ## Requisites
 

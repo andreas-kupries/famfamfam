@@ -5,6 +5,9 @@
 # @mdgen OWNER: mint/*
 # @mdgen OWNER: mint/icons/*
 
+# Kettle
+# @owns: mint
+
 # # ## ### ##### ######## ############# #####################
 ## Requisites
 

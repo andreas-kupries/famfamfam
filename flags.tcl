@@ -5,6 +5,9 @@
 # @mdgen OWNER: flags/*
 # @mdgen OWNER: flags/icons/*
 
+# Kettle
+# @owns: flags
+
 # # ## ### ##### ######## ############# #####################
 ## Requisites
 
