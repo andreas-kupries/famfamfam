@@ -205,6 +205,7 @@ proc _install {{ldir {}}} {
 
     # Create directories, might not exist.
     file mkdir $ldir
+    file mkdir $bdir
 
     foreach item $packages {
 	# Package: /name/
@@ -254,6 +255,7 @@ proc _install {{ldir {}}} {
 
     foreach item $applications {
 	file copy -force [file dirname $::me]/$item $bdir/${item}-new
+	file delete -force $bdir/$item
 	file rename $bdir/${item}-new     $bdir/$item
 	puts "Installed application: $bdir/$item"
     }
