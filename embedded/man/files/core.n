@@ -1,76 +1,83 @@
 '\"
-'\" Generated from file '/net/nas/data/andreask/Dev/FamFamFam/famfamfam/embedded/man/files/core.n' by tcllib/doctools with format 'nroff'
-'\" Copyright (c) 2012 Andreas Kupries <andreas_kupries@users.sourceforge.net>
+'\" Generated from file 'core\&.man' by tcllib/doctools with format 'nroff'
+'\" Copyright (c) 2012 Andreas Kupries <andreas_kupries@users\&.sourceforge\&.net>
 '\" Copyright (c) 2012 Documentation, Andreas Kupries
 '\"
-'\" The definitions below are for supplemental macros used in Tcl/Tk
-'\" manual entries.
-'\"
-'\" .AP type name in/out ?indent?
-'\"	Start paragraph describing an argument to a library procedure.
-'\"	type is type of argument (int, etc.), in/out is either "in", "out",
-'\"	or "in/out" to describe whether procedure reads or modifies arg,
-'\"	and indent is equivalent to second arg of .IP (shouldn't ever be
-'\"	needed;  use .AS below instead)
-'\"
-'\" .AS ?type? ?name?
-'\"	Give maximum sizes of arguments for setting tab stops.  Type and
-'\"	name are examples of largest possible arguments that will be passed
-'\"	to .AP later.  If args are omitted, default tab stops are used.
-'\"
-'\" .BS
-'\"	Start box enclosure.  From here until next .BE, everything will be
-'\"	enclosed in one large box.
-'\"
-'\" .BE
-'\"	End of box enclosure.
-'\"
-'\" .CS
-'\"	Begin code excerpt.
-'\"
-'\" .CE
-'\"	End code excerpt.
-'\"
-'\" .VS ?version? ?br?
-'\"	Begin vertical sidebar, for use in marking newly-changed parts
-'\"	of man pages.  The first argument is ignored and used for recording
-'\"	the version when the .VS was added, so that the sidebars can be
-'\"	found and removed when they reach a certain age.  If another argument
-'\"	is present, then a line break is forced before starting the sidebar.
-'\"
-'\" .VE
-'\"	End of vertical sidebar.
-'\"
-'\" .DS
-'\"	Begin an indented unfilled display.
-'\"
-'\" .DE
-'\"	End of indented unfilled display.
-'\"
-'\" .SO
-'\"	Start of list of standard options for a Tk widget.  The
-'\"	options follow on successive lines, in four columns separated
-'\"	by tabs.
-'\"
-'\" .SE
-'\"	End of list of standard options for a Tk widget.
-'\"
-'\" .OP cmdName dbName dbClass
-'\"	Start of description of a specific option.  cmdName gives the
-'\"	option's name as specified in the class command, dbName gives
-'\"	the option's name in the option database, and dbClass gives
-'\"	the option's class in the option database.
-'\"
-'\" .UL arg1 arg2
-'\"	Print arg1 underlined, then print arg2 normally.
-'\"
-'\" RCS: @(#) $Id: man.macros,v 1.1 2009/01/30 04:56:47 andreas_kupries Exp $
-'\"
-'\"	# Set up traps and other miscellaneous stuff for Tcl/Tk man pages.
+.TH "famfamfam" n 1\&.1 doc "FamFamFam Icon Sets For Tcl"
+.\" The -*- nroff -*- definitions below are for supplemental macros used
+.\" in Tcl/Tk manual entries.
+.\"
+.\" .AP type name in/out ?indent?
+.\"	Start paragraph describing an argument to a library procedure.
+.\"	type is type of argument (int, etc.), in/out is either "in", "out",
+.\"	or "in/out" to describe whether procedure reads or modifies arg,
+.\"	and indent is equivalent to second arg of .IP (shouldn't ever be
+.\"	needed;  use .AS below instead)
+.\"
+.\" .AS ?type? ?name?
+.\"	Give maximum sizes of arguments for setting tab stops.  Type and
+.\"	name are examples of largest possible arguments that will be passed
+.\"	to .AP later.  If args are omitted, default tab stops are used.
+.\"
+.\" .BS
+.\"	Start box enclosure.  From here until next .BE, everything will be
+.\"	enclosed in one large box.
+.\"
+.\" .BE
+.\"	End of box enclosure.
+.\"
+.\" .CS
+.\"	Begin code excerpt.
+.\"
+.\" .CE
+.\"	End code excerpt.
+.\"
+.\" .VS ?version? ?br?
+.\"	Begin vertical sidebar, for use in marking newly-changed parts
+.\"	of man pages.  The first argument is ignored and used for recording
+.\"	the version when the .VS was added, so that the sidebars can be
+.\"	found and removed when they reach a certain age.  If another argument
+.\"	is present, then a line break is forced before starting the sidebar.
+.\"
+.\" .VE
+.\"	End of vertical sidebar.
+.\"
+.\" .DS
+.\"	Begin an indented unfilled display.
+.\"
+.\" .DE
+.\"	End of indented unfilled display.
+.\"
+.\" .SO ?manpage?
+.\"	Start of list of standard options for a Tk widget. The manpage
+.\"	argument defines where to look up the standard options; if
+.\"	omitted, defaults to "options". The options follow on successive
+.\"	lines, in three columns separated by tabs.
+.\"
+.\" .SE
+.\"	End of list of standard options for a Tk widget.
+.\"
+.\" .OP cmdName dbName dbClass
+.\"	Start of description of a specific option.  cmdName gives the
+.\"	option's name as specified in the class command, dbName gives
+.\"	the option's name in the option database, and dbClass gives
+.\"	the option's class in the option database.
+.\"
+.\" .UL arg1 arg2
+.\"	Print arg1 underlined, then print arg2 normally.
+.\"
+.\" .QW arg1 ?arg2?
+.\"	Print arg1 in quotes, then arg2 normally (for trailing punctuation).
+.\"
+.\" .PQ arg1 ?arg2?
+.\"	Print an open parenthesis, arg1 in quotes, then arg2 normally
+.\"	(for trailing punctuation) and then a closing parenthesis.
+.\"
+.\"	# Set up traps and other miscellaneous stuff for Tcl/Tk man pages.
 .if t .wh -1.3i ^B
 .nr ^l \n(.l
 .ad b
-'\"	# Start an argument description
+.\"	# Start an argument description
 .de AP
 .ie !"\\$4"" .TP \\$4
 .el \{\
@@ -79,7 +86,7 @@
 .\}
 .ta \\n()Au \\n()Bu
 .ie !"\\$3"" \{\
-\&\\$1	\\fI\\$2\\fP	(\\$3)
+\&\\$1 \\fI\\$2\\fP (\\$3)
 .\".b
 .\}
 .el \{\
@@ -92,7 +99,7 @@
 .\}
 .\}
 ..
-'\"	# define tabbing values for .AP
+.\"	# define tabbing values for .AP
 .de AS
 .nr )A 10n
 .if !"\\$1"" .nr )A \\w'\\$1'u+3n
@@ -102,9 +109,9 @@
 .nr )C \\n()Bu+\\w'(in/out)'u+2n
 ..
 .AS Tcl_Interp Tcl_CreateInterp in/out
-'\"	# BS - start boxed text
-'\"	# ^y = starting y location
-'\"	# ^b = 1
+.\"	# BS - start boxed text
+.\"	# ^y = starting y location
+.\"	# ^b = 1
 .de BS
 .br
 .mk ^y
@@ -114,7 +121,7 @@
 .if n \l'\\n(.lu\(ul'
 .if n .fi
 ..
-'\"	# BE - end boxed text (draw box now)
+.\"	# BE - end boxed text (draw box now)
 .de BE
 .nf
 .ti 0
@@ -134,16 +141,16 @@
 .br
 .nr ^b 0
 ..
-'\"	# VS - start vertical sidebar
-'\"	# ^Y = starting y location
-'\"	# ^v = 1 (for troff;  for nroff this doesn't matter)
+.\"	# VS - start vertical sidebar
+.\"	# ^Y = starting y location
+.\"	# ^v = 1 (for troff;  for nroff this doesn't matter)
 .de VS
 .if !"\\$2"" .br
 .mk ^Y
 .ie n 'mc \s12\(br\s0
 .el .nr ^v 1u
 ..
-'\"	# VE - end of vertical sidebar
+.\"	# VE - end of vertical sidebar
 .de VE
 .ie n 'mc
 .el \{\
@@ -158,9 +165,9 @@
 .\}
 .nr ^v 0
 ..
-'\"	# Special macro to handle page bottom:  finish off current
-'\"	# box/sidebar if in box/sidebar mode, then invoked standard
-'\"	# page bottom macro.
+.\"	# Special macro to handle page bottom:  finish off current
+.\"	# box/sidebar if in box/sidebar mode, then invoked standard
+.\"	# page bottom macro.
 .de ^B
 .ev 2
 'ti 0
@@ -187,34 +194,36 @@
 .mk ^Y
 .\}
 ..
-'\"	# DS - begin display
+.\"	# DS - begin display
 .de DS
 .RS
 .nf
 .sp
 ..
-'\"	# DE - end display
+.\"	# DE - end display
 .de DE
 .fi
 .RE
 .sp
 ..
-'\"	# SO - start of list of standard options
+.\"	# SO - start of list of standard options
 .de SO
+'ie '\\$1'' .ds So \\fBoptions\\fR
+'el .ds So \\fB\\$1\\fR
 .SH "STANDARD OPTIONS"
 .LP
 .nf
-.ta 4c 8c 12c
+.ta 5.5c 11c
 .ft B
 ..
-'\"	# SE - end of list of standard options
+.\"	# SE - end of list of standard options
 .de SE
 .fi
 .ft R
 .LP
-See the \\fBoptions\\fR manual entry for details on the standard options.
+See the \\*(So manual entry for details on the standard options.
 ..
-'\"	# OP - start of full description for a single option
+.\"	# OP - start of full description for a single option
 .de OP
 .LP
 .nf
@@ -225,32 +234,54 @@ Database Class:	\\fB\\$3\\fR
 .fi
 .IP
 ..
-'\"	# CS - begin code excerpt
+.\"	# CS - begin code excerpt
 .de CS
 .RS
 .nf
 .ta .25i .5i .75i 1i
 ..
-'\"	# CE - end code excerpt
+.\"	# CE - end code excerpt
 .de CE
 .fi
 .RE
 ..
+.\"	# UL - underline word
 .de UL
 \\$1\l'|0\(ul'\\$2
 ..
-.TH "famfamfam" n 1.1 doc "FamFamFam Icon Sets For Tcl"
+.\"	# QW - apply quotation marks to word
+.de QW
+.ie '\\*(lq'"' ``\\$1''\\$2
+.\"" fix emacs highlighting
+.el \\*(lq\\$1\\*(rq\\$2
+..
+.\"	# PQ - apply parens and quotation marks to word
+.de PQ
+.ie '\\*(lq'"' (``\\$1''\\$2)\\$3
+.\"" fix emacs highlighting
+.el (\\*(lq\\$1\\*(rq\\$2)\\$3
+..
+.\"	# QR - quoted range
+.de QR
+.ie '\\*(lq'"' ``\\$1''\\-``\\$2''\\$3
+.\"" fix emacs highlighting
+.el \\*(lq\\$1\\*(rq\\-\\*(lq\\$2\\*(rq\\$3
+..
+.\"	# MT - "empty" string
+.de MT
+.QW ""
+..
 .BS
 .SH NAME
 famfamfam \- FamFamFam Core
 .SH SYNOPSIS
-package require \fBTk  8.5\fR
+package require \fBTk  8\&.5\fR
 .sp
-package require \fBTcl  8.5\fR
+package require \fBTcl  8\&.5\fR
 .sp
 package require \fBimg::png \fR
 .sp
-package require \fBfamfamfam  ?1.1?\fR
+package require \fBfamfamfam  ?1\&.1?\fR
 .sp
 \fB::famfamfam\fR \fBintercept\fR \fIcmdprefix\fR
 .sp
@@ -272,23 +303,23 @@ package require \fBfamfamfam  ?1.1?\fR
 .SH DESCRIPTION
 Welcome to famfamfam, a set of packages providing access to the
 same-named icon sets created by
-\fIMark James\fR [mailto:mjames@gmail.com], at
-\fIhttp://www.famfamfam.com/lab/icons/\fR
+\fIMark James\fR [mailto:mjames@gmail\&.com], at
+\fIhttp://www\&.famfamfam\&.com/lab/icons/\fR
 .PP
 This package is internal to the other FamFamFam packages and
-provides the common functionality shared by all.
+provides the common functionality shared by all\&.
 .PP
 It resides in the Core level of the architecture
 IMAGE: arch_core
 .SH API
 .TP
 \fB::famfamfam\fR \fBintercept\fR \fIcmdprefix\fR
-This method adds/removes a callback invoked whenever an image is loaded.
+This method adds/removes a callback invoked whenever an image is loaded\&.
 This means that the callback is only invoked the first time an image is
-requested and thus not in the in-memory cache yet. Any further requests
-served from the cache are not reported.
+requested and thus not in the in-memory cache yet\&. Any further requests
+served from the cache are not reported\&.
 .sp
-Setting an empty string as callback deactivates it.
+Setting an empty string as callback deactivates it\&.
 .sp
 The signature of the callback is
 .RS
@@ -296,24 +327,24 @@ The signature of the callback is
 \fI{*}cmdprefix\fR \fIset\fR \fIname\fR \fIpath\fR
 The arguments to the callback provide the name of the icon \fIset\fR,
 the \fIname\fR of the icon itself, and the \fIpath\fR the icon was
-loaded from.
+loaded from\&.
 .sp
-The result of the callback is ignored.
+The result of the callback is ignored\&.
 .sp
 Any error thrown by the callback will prevent the icon from
-being loaded, i.e. the \fBget\fR method of the icon set will be
-aborted.
+being loaded, i\&.e\&. the \fBget\fR method of the icon set will be
+aborted\&.
 .RE
 .TP
 \fB::famfamfam\fR \fBnames\fR
 This method returns a list containing the names of all \fBdeclare\fRd
-icon sets.
+icon sets\&.
 .TP
 \fB::famfamfam\fR \fBdeclare\fR \fIname\fR \fIicondir\fR ?\fIpattern\fR?
 This method registers the icons found in the icon directory
 \fIicondir\fR and matching the \fIpattern\fR as the icon set
-\fIname\fR.
-If the \fIpattern\fR is not specified it defaults to \fB*.png\fR.
+\fIname\fR\&.
+If the \fIpattern\fR is not specified it defaults to \fB*\&.png\fR\&.
 .sp
 The command creates the accessor commands
 .RS
@@ -324,46 +355,47 @@ The command creates the accessor commands
 .IP [3]
 \fB::famfamfam\fR \fIname\fR \fBpath\fR
 .RE
-for the new icon set. These are aliases to the core methods below,
-with the name of the icon set preset.
+.IP
+for the new icon set\&. These are aliases to the core methods below,
+with the name of the icon set preset\&.
 .sp
-The command returns the empty string as its result.
+The command returns the empty string as its result\&.
 .TP
 \fB::famfamfam::Declare\fR \fIname\fR \fIicondir\fR ?\fIpattern\fR?
 This command is an alias of \fBfamfamfam declare\fR, available for
-compatibility with packages based on the 1.0 API.
+compatibility with packages based on the 1\&.0 API\&.
 .TP
 \fB::famfamfam\fR \fBget\fR \fIiconset\fR \fIicon\fR
 This method returns a Tk image holding the \fIicon\fR in icon set
-\fIiconset\fR. An error will be thrown if either icon set or icon
-are not valid.
+\fIiconset\fR\&. An error will be thrown if either icon set or icon
+are not valid\&.
 .TP
 \fB::famfamfam\fR \fBpath\fR \fIiconset\fR \fIicon\fR
 This method returns the path of the image file for the \fIicon\fR
-in icon set \fIiconset\fR. An error will be thrown if either icon set
-or icon are not valid.
+in icon set \fIiconset\fR\&. An error will be thrown if either icon set
+or icon are not valid\&.
 .TP
 \fB::famfamfam\fR \fBlist\fR \fIiconset\fR ?\fIpattern\fR?
 This method returns a list containing the names of all valid icons in
-the icon set \fIiconset\fR. An error will be thrown if the
-\fIiconset\fR is not valid.
+the icon set \fIiconset\fR\&. An error will be thrown if the
+\fIiconset\fR is not valid\&.
 If the \fIpattern\fR is specified then only names matching that
-pattern are returned. Matching is done by \fBstring match\fR,
-i.e. the argument is a \fIglob pattern\fR.
+pattern are returned\&. Matching is done by \fBstring match\fR,
+i\&.e\&. the argument is a \fIglob pattern\fR\&.
 .PP
 .SH "BUGS, IDEAS, FEEDBACK"
 This document, and the package it describes, will undoubtedly contain
-bugs and other problems.
-Please report such at the \fIFamFamFam Tcl Tracker\fR [http://chiselapp.com/user/andreas_kupries/repository/famfamfam].
+bugs and other problems\&.
+Please report such at the \fIFamFamFam Tcl Tracker\fR [http://chiselapp\&.com/user/andreas_kupries/repository/famfamfam]\&.
 Please also report any ideas for enhancements you may have for either
-package and/or documentation.
+package and/or documentation\&.
 .SH KEYWORDS
 famfamfam, icons, images
 .SH CATEGORY
 Icon sets
 .SH COPYRIGHT
 .nf
-Copyright (c) 2012 Andreas Kupries <andreas_kupries@users.sourceforge.net>
+Copyright (c) 2012 Andreas Kupries <andreas_kupries@users\&.sourceforge\&.net>
 Copyright (c) 2012 Documentation, Andreas Kupries
 
 .fi
